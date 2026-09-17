@@ -1,0 +1,11 @@
+{
+  "name":"Hà Giang Smart Buddy",
+  "short_name":"Smart Buddy",
+  "description":"Trợ lý học tập cho học sinh khối 6–12.",
+  "lang":"vi",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#f7f8f2",
+  "theme_color":"#256650",
+  "icons":[{"src":"/pwa-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
