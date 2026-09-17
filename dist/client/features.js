@@ -22,8 +22,8 @@ async function toggleCamera(){const b=$('#cameraToggle');if(roomStream){roomStre
 
 // Use official YouTube embeds for Lofi. No audio is copied, trimmed or re-hosted.
 const lofiTracks=[
- {id:'jfKfPfyJRdk',title:'Lofi hip hop radio',channel:'Lofi Girl',mood:'Học bài & thư giãn'},
- {id:'gmv54pfxk0Q',title:'24/7 Chilled Beats',channel:'College Music',mood:'Đọc sách & tập trung'}
+ {id:'jfKfPfyJRdk',url:'https://www.youtube.com/watch?v=jfKfPfyJRdk',title:'Lofi hip hop radio',channel:'Lofi Girl',mood:'Học bài & thư giãn'},
+ {id:'gmv54pfxk0Q',url:'https://www.youtube.com/watch?v=gmv54pfxk0Q',title:'24/7 Chilled Beats',channel:'College Music',mood:'Đọc sách & tập trung'}
 ];
 const renderFocusBase=renderFocusHub;
 renderFocusHub=function(){
@@ -39,6 +39,6 @@ renderFocusHub=function(){
 };
 function stopGeneratedSound(){if(audioCtx){audioCtx.close();audioCtx=null}noiseNode=null;document.querySelectorAll('[data-sound]').forEach(x=>x.classList.remove('selected'))}
 function stopAllSound(){stopGeneratedSound();const p=$('#lofiPlayer');if(p)p.innerHTML='<span>Đã tắt âm thanh</span>';document.querySelectorAll('[data-lofi]').forEach(x=>x.classList.remove('playing'));const off=document.querySelector('[data-sound="off"]');if(off)off.classList.add('selected');toast('Đã tắt toàn bộ âm thanh.');}
-function playLofi(id,button){if(!lofiTracks.some(t=>t.id===id))return;stopGeneratedSound();const p=$('#lofiPlayer');p.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Trình phát Lofi YouTube" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;document.querySelectorAll('[data-lofi]').forEach(x=>x.classList.toggle('playing',x===button));}
+function playLofi(id,button){const track=lofiTracks.find(t=>t.id===id);if(!track)return;stopGeneratedSound();const p=$('#lofiPlayer');p.innerHTML=`<div class="external-player"><b>${esc(track.title)}</b><span>YouTube không cho phát video này bên trong website.</span><a class="primary" href="${track.url}" target="_blank" rel="noopener">▶ Nghe trên YouTube</a><small>Video mở từ kênh chính thức, không tải lại hoặc sao chép.</small></div>`;document.querySelectorAll('[data-lofi]').forEach(x=>x.classList.toggle('playing',x===button));}
 const playSoundBase=playSound;
 playSound=function(type){if(type==='lofi'){const library=$('#lofiLibrary');if(library)library.hidden=false;stopGeneratedSound();return}const player=$('#lofiPlayer');if(player)player.innerHTML='<span>Chọn một kênh để bắt đầu nghe</span>';playSoundBase(type)};
