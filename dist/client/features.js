@@ -22,8 +22,8 @@ async function toggleCamera(){const b=$('#cameraToggle');if(roomStream){roomStre
 
 // Use official YouTube embeds for Lofi. No audio is copied, trimmed or re-hosted.
 const lofiTracks=[
- {id:'X4VbdwhkE10',title:'Lofi hip hop radio',channel:'Lofi Girl',mood:'Học bài & thư giãn'},
- {id:'EWrX250Zhko',title:'Lofi radio — chill beats',channel:'Lofi Girl',mood:'Đọc sách & tập trung'}
+ {id:'jfKfPfyJRdk',title:'Lofi hip hop radio',channel:'Lofi Girl',mood:'Học bài & thư giãn'},
+ {id:'gmv54pfxk0Q',title:'24/7 Chilled Beats',channel:'College Music',mood:'Đọc sách & tập trung'}
 ];
 const renderFocusBase=renderFocusHub;
 renderFocusHub=function(){
