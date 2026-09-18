@@ -2,6 +2,8 @@
 const upgradeState=(()=>{try{return JSON.parse(localStorage.getItem('buddy-upgrades-v1')||'{}')}catch{return{}}})();
 upgradeState.attempts=Array.isArray(upgradeState.attempts)?upgradeState.attempts:[];
 upgradeState.posts=Array.isArray(upgradeState.posts)?upgradeState.posts:[];
+upgradeState.lessons=Array.isArray(upgradeState.lessons)?upgradeState.lessons:[];
+let learnerId='';try{learnerId=localStorage.getItem('buddy-learner-id')||'';if(!learnerId){learnerId='HG-'+crypto.getRandomValues(new Uint32Array(1))[0].toString(36).toUpperCase().slice(0,6);localStorage.setItem('buddy-learner-id',learnerId)}}catch{learnerId='HG-LOCAL'}
 const saveUpgrades=()=>localStorage.setItem('buddy-upgrades-v1',JSON.stringify(upgradeState));
 
 titles.progress='Tiến độ của tôi';titles.opportunities='Học bổng & Nghề nghiệp';titles.community='Bạn đồng hành';titles.resources='Thư viện theo khối';titles.about='Về dự án';
@@ -12,7 +14,7 @@ render=function(){
  else if(view==='community')renderCommunity();
  else if(view==='resources')renderResources();
  else if(view==='about')renderAbout();
- else renderBase();
+ else{renderBase();if(view==='study'){const key=`${grade}-${subject}`;if(!upgradeState.lessons.some(x=>x.key===key)){upgradeState.lessons.unshift({key,grade,subject,date:new Date().toISOString()});upgradeState.lessons=upgradeState.lessons.slice(0,50);saveUpgrades()}}}
  closeMobileMenu();
 };
 
@@ -31,7 +33,7 @@ function renderProgressHub(){
  const goal=Math.min(100,Math.round((attempts.length*12+done*5+featureState.points)/2));
  const subjectProgress=practiceSubjects.map(s=>{const rows=attempts.filter(a=>a.subject===s);const value=rows.length?Math.round(rows.reduce((n,a)=>n+a.pct,0)/rows.length):0;return progressLine(s,value)}).join('');
  const bars=Array.from({length:7},(_,i)=>{const date=new Date();date.setDate(date.getDate()-(6-i));const key=date.toISOString().slice(0,10);const n=attempts.filter(a=>a.date.slice(0,10)===key).length;return `<div><i style="height:${Math.max(8,Math.min(100,n*28))}%"></i><small>${['CN','T2','T3','T4','T5','T6','T7'][date.getDay()]}</small></div>`}).join('');
- content.innerHTML=`<span class="eyebrow">HÀNH TRÌNH CỦA BẠN</span><h1>Mỗi buổi học đều được ghi nhận</h1><p class="muted">Số liệu lưu riêng trên thiết bị này.</p><div class="metric-grid"><article class="metric"><span>🔥</span><b>${streak.current}</b><small>ngày liên tiếp</small></article><article class="metric"><span>◎</span><b>${avg}%</b><small>điểm luyện đề TB</small></article><article class="metric"><span>✦</span><b>${featureState.points}</b><small>điểm nỗ lực</small></article><article class="metric"><span>▦</span><b>${attempts.length}</b><small>bộ đề đã làm</small></article></div><div class="progress-layout"><section class="panel"><div class="panel-head"><h2>Tiến độ mục tiêu</h2><span class="pill">Khối ${grade}</span></div>${progressLine('Thói quen hôm nay',daily)}${progressLine('Kết quả luyện đề',avg)}${progressLine('Mục tiêu học kỳ',goal)}<div class="week-chart" aria-label="Số bộ đề trong bảy ngày">${bars}</div></section><section class="panel"><h2>Lịch sử luyện đề</h2><div class="attempt-list">${attempts.length?attempts.slice(0,6).map(a=>`<article><span><b>${esc(a.subject)}</b><small>Khối ${a.grade} · ${new Date(a.date).toLocaleDateString('vi-VN')}</small></span><strong>${a.score}/${a.total}</strong></article>`).join(''):'<div class="empty-result"><span>🌱</span><p>Hãy hoàn thành một bộ đề để bắt đầu biểu đồ.</p></div>'}</div><div class="account-box"><b>Đồng bộ nhiều thiết bị</b><p>Hiện tiến độ đang lưu cục bộ. Đăng nhập Google sẽ được bật khi dự án có cấu hình OAuth và cơ sở dữ liệu riêng.</p><button class="secondary" disabled>Đăng nhập Google · Chưa cấu hình</button></div></section><section class="panel subject-progress"><div class="panel-head"><h2>Hoàn thành theo môn</h2><span class="pill">Kết quả trung bình</span></div>${subjectProgress}</section></div>`;
+ content.innerHTML=`<span class="eyebrow">HÀNH TRÌNH CỦA BẠN · ${esc(learnerId)}</span><h1>Mỗi buổi học đều được ghi nhận</h1><p class="muted">Streak, bài đã học và kết quả được lưu riêng cho hồ sơ ẩn danh trên thiết bị này.</p><div class="metric-grid"><article class="metric"><span>🔥</span><b>${streak.current}</b><small>ngày liên tiếp</small></article><article class="metric"><span>◎</span><b>${avg}%</b><small>điểm luyện đề TB</small></article><article class="metric"><span>✦</span><b>${featureState.points}</b><small>điểm nỗ lực</small></article><article class="metric"><span>▦</span><b>${attempts.length}</b><small>bộ đề đã làm</small></article></div><div class="progress-layout"><section class="panel"><div class="panel-head"><h2>Tiến độ mục tiêu</h2><span class="pill">Khối ${grade}</span></div>${progressLine('Thói quen hôm nay',daily)}${progressLine('Kết quả luyện đề',avg)}${progressLine('Mục tiêu học kỳ',goal)}<div class="week-chart" aria-label="Số bộ đề trong bảy ngày">${bars}</div></section><section class="panel"><h2>Lịch sử luyện đề</h2><div class="attempt-list">${attempts.length?attempts.slice(0,6).map(a=>`<article><span><b>${esc(a.subject)}</b><small>Khối ${a.grade} · ${new Date(a.date).toLocaleDateString('vi-VN')}</small></span><strong>${a.score}/${a.total}</strong></article>`).join(''):'<div class="empty-result"><span>🌱</span><p>Hãy hoàn thành một bộ đề để bắt đầu biểu đồ.</p></div>'}</div><div class="account-box"><b>Hồ sơ riêng ${esc(learnerId)}</b><p>Dữ liệu không dùng địa chỉ IP và không gửi lên máy chủ. Xóa dữ liệu trình duyệt sẽ xóa hồ sơ này. Đồng bộ nhiều thiết bị cần đăng nhập và cơ sở dữ liệu riêng.</p><button class="secondary" disabled>Đăng nhập Google · Chưa cấu hình</button></div></section><section class="panel subject-progress"><div class="panel-head"><h2>Hoàn thành theo môn</h2><span class="pill">Kết quả trung bình</span></div>${subjectProgress}</section></div>`;
 }
 function progressLine(label,value){return `<div class="progress-line"><span>${label}<b>${value}%</b></span><div class="progress"><i style="width:${value}%"></i></div></div>`}
 
@@ -94,6 +96,9 @@ const themeToggle=$('#themeToggle');
 if(themeToggle)themeToggle.onclick=()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('buddy-theme',document.documentElement.dataset.theme)}catch{}updateThemeButton()};
 function updateThemeButton(){if(!themeToggle)return;themeToggle.textContent=document.documentElement.dataset.theme==='dark'?'☀':'☾';themeToggle.title=document.documentElement.dataset.theme==='dark'?'Bật chế độ sáng':'Bật chế độ tối'}
 updateThemeButton();
+const avatarNode=$('.avatar'),localNote=$('.localnote');
+if(avatarNode)avatarNode.title=`Hồ sơ ẩn danh ${learnerId}`;
+if(localNote)localNote.textContent=`◉ ${learnerId} · tiến độ riêng trên thiết bị`;
 
 
 
