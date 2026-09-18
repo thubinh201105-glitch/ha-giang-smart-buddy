@@ -34,3 +34,8 @@ html{min-height:100%;overflow-x:hidden;overflow-y:auto;scroll-behavior:smooth}bo
 [data-theme="dark"] .segmented button.selected,[data-theme="dark"] .sound.selected{background:#74c69d;color:#10231b;border-color:#74c69d;font-weight:700}
 [data-theme="dark"] .matrix-cell{box-shadow:inset 0 0 0 1px #263a31}
 [data-theme="dark"] .todo-item .done{color:#9caaa2}
+/* Stronger matrix text requested for dark mode */
+[data-theme="dark"] .matrix-cell{background:#d8e0da;color:#172a22;border-color:#8fa298}
+[data-theme="dark"] .matrix-label{color:#173126;font-weight:800}
+[data-theme="dark"] .matrix-label small{color:#3f554a;font-weight:700}
+[data-theme="dark"] .matrix-cell .todo-item{background:#eef2ef;color:#172a22;border-color:#a8b7af}
