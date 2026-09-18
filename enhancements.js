@@ -84,10 +84,16 @@ $('#searchButton').onclick=runSearch;$('#globalSearch').oninput=runSearch;$('#gl
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 
 function closeMobileMenu(){document.body.classList.remove('menu-open')}
-$('#openMenu').onclick=()=>document.body.classList.add('menu-open');$('#closeMenu').onclick=closeMobileMenu;$('#menuBackdrop').onclick=closeMobileMenu;
-let savedTheme='light';try{savedTheme=localStorage.getItem('buddy-theme')||'light'}catch{}document.documentElement.dataset.theme=savedTheme;updateThemeButton();
-$('#themeToggle').onclick=()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('buddy-theme',document.documentElement.dataset.theme);updateThemeButton()};
-function updateThemeButton(){$('#themeToggle').textContent=document.documentElement.dataset.theme==='dark'?'☀':'☾';$('#themeToggle').title=document.documentElement.dataset.theme==='dark'?'Bật chế độ sáng':'Bật chế độ tối'}
+const openMenu=$('#openMenu'),closeMenu=$('#closeMenu'),menuBackdrop=$('#menuBackdrop');
+if(openMenu)openMenu.onclick=()=>document.body.classList.add('menu-open');
+if(closeMenu)closeMenu.onclick=closeMobileMenu;
+if(menuBackdrop)menuBackdrop.onclick=closeMobileMenu;
+let savedTheme='light';try{savedTheme=localStorage.getItem('buddy-theme')||'light'}catch{}
+document.documentElement.dataset.theme=savedTheme;
+const themeToggle=$('#themeToggle');
+if(themeToggle)themeToggle.onclick=()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('buddy-theme',document.documentElement.dataset.theme)}catch{}updateThemeButton()};
+function updateThemeButton(){if(!themeToggle)return;themeToggle.textContent=document.documentElement.dataset.theme==='dark'?'☀':'☾';themeToggle.title=document.documentElement.dataset.theme==='dark'?'Bật chế độ sáng':'Bật chế độ tối'}
+updateThemeButton();
 
 
 
