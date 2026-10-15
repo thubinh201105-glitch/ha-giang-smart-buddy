@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+node_modules/
+*.log
+server-test.mjs
+CAI-DAT-ENV.md
+CAI-DAT-OPENAI.md
+HUONG-DAN.txt
+KHOI-DONG.cmd
+KHOI-DONG.ps1
