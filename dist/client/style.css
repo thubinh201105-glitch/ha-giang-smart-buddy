@@ -69,3 +69,5 @@ html{min-height:100%;overflow-x:hidden;overflow-y:auto;scroll-behavior:smooth}bo
 
 [data-theme='dark'] .account-dialog{background:#14251e}
 .account-dialog{background:#e4eadf;border-color:#9eaea2;color:#173c30}.account-dialog .muted,.account-dialog .account-privacy{color:#4f665d}.account-dialog input{background:#fbfcf8;color:#173c30;border:1px solid #879b8e}.account-dialog input::placeholder{color:#687b71;opacity:1}.account-dialog label{color:#24483b}.account-tabs{background:#d4ded3}.account-modal{background:rgba(19,38,31,.72)}[data-theme='dark'] .account-dialog{background:#14251e;color:#eef6f1}[data-theme='dark'] .account-dialog input{background:#f5f7f3;color:#173c30}
+
+.place-photo-grid.count-1{grid-template-columns:minmax(220px,520px)}.place-photo-grid.count-2{grid-template-columns:repeat(2,minmax(0,1fr))}.place-photo-grid.count-3{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:700px){.place-photo-grid.count-1,.place-photo-grid.count-2,.place-photo-grid.count-3{grid-template-columns:1fr 1fr}}@media(max-width:440px){.place-photo-grid,.place-photo-grid.count-1,.place-photo-grid.count-2,.place-photo-grid.count-3{grid-template-columns:1fr}}
