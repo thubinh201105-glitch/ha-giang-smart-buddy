@@ -75,7 +75,7 @@ function renderAbout(){content.innerHTML=`<div class="about-hero textile"><span 
 
 const searchItems=[
  ...allResources().map(r=>({...r,view:'resources',keywords:`đề thi tài liệu công thức ${r.subject} ${r.grade} ${r.subject.includes('Lý')?'lý vật lý hóa hóa học sinh sinh học':''}`})),
- {title:'Hỏi bài cùng Buddy',description:'Chatbot AI gợi ý phương pháp giải bài.',view:'study',keywords:'ai chatbot giải bài hỏi đáp'},
+ {title:'Hỏi bài cùng Buddy',description:'Chatbot AI gợi ý phương pháp giải bài.',view:'buddy',keywords:'ai chatbot giải bài hỏi đáp'},
  {title:'Pomodoro và nhạc Lofi',description:'Đồng hồ 25 phút và nhạc tập trung.',view:'focus',keywords:'pomodoro lofi tập trung nhạc'},
  {title:'Sổ tay công thức',description:'Công thức Toán, Lý, Hóa và Tiếng Anh.',view:'visuals',keywords:'công thức vật lý hóa học toán tiếng anh'},
  {title:'Học bổng Hà Giang',description:'Nguồn chính thức và hướng dẫn săn học bổng.',view:'opportunities',keywords:'học bổng tuyển sinh nghề nghiệp hà giang'},
