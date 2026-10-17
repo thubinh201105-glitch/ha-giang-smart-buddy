@@ -1,0 +1,1 @@
+Ban da duoc bo sung OpenAI. Xem CAI-DAT-OPENAI.md. Chay KHOI-DONG.cmd, nhap khoa tai cua so tren may, mo http://127.0.0.1:4174. Khong gui khoa qua chat. Mo index.html truc tiep chi dung duoc noi dung mau.
