@@ -24,7 +24,7 @@ const server=http.createServer(async(req,res)=>{try{
   if(!key)return json(res,503,{code:'MISSING_KEY',message:'Chưa cấu hình khóa OpenAI. Người quản trị cần nhập khóa khi khởi động máy chủ.'});
   let text='',bytes=0;for await(const part of req){bytes+=part.length;if(bytes>8000)return json(res,413,{code:'TOO_LARGE',message:'Câu hỏi quá dài.'});text+=part}
   let data;try{data=JSON.parse(text)}catch{return json(res,400,{code:'INVALID_REQUEST',message:'Dữ liệu không hợp lệ.'})}
-  if(data.grade!=null&&(!Number.isInteger(data.grade)||data.grade<6||data.grade>12))return json(res,400,{code:'INVALID_GRADE',message:'Khối học không hợp lệ.'});if(data.ageConfirmed!==true)return json(res,400,{code:'AGE_REQUIRED',message:'Chức năng AI trong bản này dành cho người từ 13 tuổi trở lên.'});
+  if(data.grade!=null&&(!Number.isInteger(data.grade)||data.grade<6||data.grade>12))return json(res,400,{code:'INVALID_GRADE',message:'Khối học không hợp lệ.'});if(data.ageConfirmed!==true)return json(res,400,{code:'AGE_REQUIRED',message:'Chức năng AI trong bản này dành cho người từ 15 tuổi trở lên.'});
   if(typeof data.question!=='string'||!data.question.trim()||data.question.length>1500||!['middle','high'].includes(data.level)||!['Toán','Ngữ văn','Lịch sử'].includes(data.subject))return json(res,400,{code:'INVALID_REQUEST',message:'Câu hỏi, môn học hoặc cấp học không hợp lệ.'});
   const now=Date.now();recent=recent.filter(t=>now-t<60000);if(recent.length>=6||busy>=2)return json(res,429,{code:'LOCAL_RATE_LIMIT',message:'Bạn đang gửi quá nhanh. Hãy chờ một phút rồi thử lại.'});recent.push(now);busy++;
   try{

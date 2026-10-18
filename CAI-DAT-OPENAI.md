@@ -8,7 +8,7 @@ Bản này hỗ trợ hỏi bài AI qua máy chủ Node.js chạy trên máy c�
 2. Trong thư mục này, nhấp đúp **KHOI-DONG.cmd**. Đây là chương trình khởi động máy chủ; cần giữ cửa sổ mở trong lúc học.
 3. Khi cửa sổ hỏi API key, nhập hoặc dán khóa OpenAI trực tiếp tại đó, rồi nhấn Enter. Ký tự được ẩn. Không gửi khóa cho trợ lý trong chat. Nếu nhấn Enter không nhập khóa, website vẫn chạy và báo thiếu khóa.
 4. Mở http://127.0.0.1:4174 (khác bản giao diện cũ ở cổng 4173).
-5. Chọn **Hỏi bài cùng Buddy**, chọn môn và cấp học, xác nhận từ 13 tuổi trở lên, nhập câu hỏi rồi gửi. Việc dùng API có thể phát sinh phí từ tài khoản OpenAI của bạn.
+5. Chọn **Hỏi bài cùng Buddy**, chọn môn và cấp học, xác nhận từ 15 tuổi trở lên, nhập câu hỏi rồi gửi. Việc dùng API có thể phát sinh phí từ tài khoản OpenAI của bạn.
 6. Khi xong, nhấn Ctrl+C trong cửa sổ máy chủ. Khóa không được ghi vào tệp, mã giao diện hoặc lịch sử lệnh; cần nhập lại khi khởi động lần sau.
 
 ## Bảo mật
@@ -29,7 +29,7 @@ Tạo project và khóa riêng cho Buddy trong OpenAI Platform, đặt quyền t
 | Mô hình không khả dụng | Kiểm tra tài khoản có quyền dùng gpt-4.1-mini; OPENAI_MODEL có thể được cấu hình ở máy chủ. |
 | Kết nối lỗi / quá thời gian | Kiểm tra mạng, giữ cửa sổ máy chủ mở, rồi thử lại. |
 
-Máy chủ kiểm tra nội dung đầu vào và đầu ra bằng Moderations. AI có thể trả lời sai; cần đối chiếu sách và thầy cô. Bản AI này giới hạn từ 13 tuổi, không phải hệ thống xác minh tuổi đầy đủ. Trước khi cho học sinh nhỏ hơn sử dụng hoặc triển khai rộng, cần kiểm tra quy định tuổi đồng ý số và dữ liệu trẻ em; `store:false` không thay thế yêu cầu ZDR đối với dữ liệu cá nhân của trẻ dưới tuổi quy định.
+Máy chủ kiểm tra nội dung đầu vào và đầu ra bằng Moderations. AI có thể trả lời sai; cần đối chiếu sách và thầy cô. Bản AI này giới hạn từ 15 tuổi, không phải hệ thống xác minh tuổi đầy đủ. Trước khi cho học sinh nhỏ hơn sử dụng hoặc triển khai rộng, cần kiểm tra quy định tuổi đồng ý số và dữ liệu trẻ em; `store:false` không thay thế yêu cầu ZDR đối với dữ liệu cá nhân của trẻ dưới tuổi quy định.
 
 ## Khi đưa lên Netlify
 
